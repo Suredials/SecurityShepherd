@@ -71,19 +71,8 @@ public class BrokenCrypto3 extends HttpServlet {
         String userData = request.getParameter("userData");
         log.debug("User Submitted - " + userData);
 
-        log.debug("Decrypting user input");
-        // Using level key as encryption key
-        String decryptedUserData = decrypt(userData, levelResult);
-        log.debug("Decrypted to: " + decryptedUserData);
-
-        htmlOutput =
-            "<h2 class='title'>"
-                + bundle.getString("insecureCryptoStorage.3.plaintextResult")
-                + "</h2><p>"
-                + bundle.getString("insecureCryptoStorage.3.plaintextResult.message")
-                + "<br/><br/><em>"
-                + Encode.forHtml(decryptedUserData)
-                + "</em></p>";
+        // Legacy XOR ciphertext is unauthenticated and must not be decrypted or disclosed.
+        htmlOutput = errors.getString("error.funky");
       } catch (Exception e) {
         log.fatal(levelName + " - " + e.toString());
         htmlOutput = errors.getString("error.funky");
