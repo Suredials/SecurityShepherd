@@ -93,7 +93,13 @@ public class XssChallengeFour extends HttpServlet {
             searchTerm = XssFilter.encodeForHtml(searchTerm);
             String safeUrl = Encode.forHtmlAttribute(searchTerm);
             userPost =
-                "<a href=\"" + safeUrl + "\" alt=\"" + safeUrl + "\">" + Encode.forHtml(searchTerm) + "</a>";
+                "<a href=\""
+                    + safeUrl
+                    + "\" alt=\""
+                    + safeUrl
+                    + "\">"
+                    + Encode.forHtml(searchTerm)
+                    + "</a>";
             log.debug("After Encoding - " + searchTerm);
             if (FindXSS.search(userPost)) {
               htmlOutput =

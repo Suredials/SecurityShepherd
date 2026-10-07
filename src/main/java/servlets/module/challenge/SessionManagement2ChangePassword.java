@@ -97,7 +97,8 @@ public class SessionManagement2ChangePassword extends HttpServlet {
           log.debug("Checking credentials");
           PreparedStatement callstmt =
               conn.prepareStatement(
-                  "UPDATE users SET userPassword = SHA(?) WHERE userAddress = ? AND userName <> 'admin'");
+                  "UPDATE users SET userPassword = SHA(?) WHERE userAddress = ? AND userName <>"
+                      + " 'admin'");
           callstmt.setString(1, newPassword);
           callstmt.setString(2, subEmail);
           log.debug("Executing resetPassword");

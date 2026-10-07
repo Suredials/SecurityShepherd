@@ -66,7 +66,8 @@ public class PoorValidation1 extends HttpServlet {
       out.print(getServletInfo());
       String htmlOutput = new String();
       try {
-        int pineappleAmount = validateAmount(Integer.parseInt(request.getParameter("pineappleAmount")));
+        int pineappleAmount =
+            validateAmount(Integer.parseInt(request.getParameter("pineappleAmount")));
         log.debug("pineappleAmount - " + pineappleAmount);
         int orangeAmount = validateAmount(Integer.parseInt(request.getParameter("orangeAmount")));
         log.debug("orangeAmount - " + orangeAmount);
@@ -122,6 +123,7 @@ public class PoorValidation1 extends HttpServlet {
       log.error(levelName + " servlet accessed with no session");
     }
   }
+
   private static int validateAmount(int amount) {
     if (amount < 0 || amount > 1000) {
       throw new IllegalArgumentException("Invalid order quantity");

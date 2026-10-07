@@ -4,9 +4,9 @@ import dbProcs.Database;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.PreparedStatement;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.servlet.ServletException;
@@ -86,7 +86,8 @@ public class SqlInjection1 extends HttpServlet {
 
         log.debug("Getting Connection to Database");
         Connection conn = Database.getChallengeConnection(ApplicationRoot, "SqlChallengeOne");
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE customerId = ?");
+        PreparedStatement stmt =
+            conn.prepareStatement("SELECT * FROM customers WHERE customerId = ?");
         stmt.setString(1, aUserId);
         log.debug("Gathering result set");
         ResultSet resultSet = stmt.executeQuery();
