@@ -94,7 +94,7 @@ public class SessionManagement1 extends HttpServlet {
           log.debug("Decoded Cookie: " + decodedCookie);
 
           if (decodedCookie.equals("userRole=administrator")
-              && Validate.validateAdminSession(ses)) {
+              && "administrator".equals(ses.getAttribute("sessionManagement1Role"))) {
             log.debug("Challenge Complete");
             // Get key and add it to the output
             String userKey =

@@ -79,9 +79,8 @@ public class SessionManagement3ChangePassword extends HttpServlet {
       try {
         log.debug("Getting Challenge Parameters");
         Object passNewObj = request.getParameter("newPassword");
-        String subName = new String();
+        String subName = (String) ses.getAttribute("sessionManagement3User");
         String subNewPass = new String();
-        subName = (String) ses.getAttribute("userName");
         if (passNewObj != null) {
           subNewPass = (String) passNewObj;
         }
@@ -89,7 +88,7 @@ public class SessionManagement3ChangePassword extends HttpServlet {
         log.debug("subName Decoded = " + subName);
         log.debug("subPass = " + subNewPass);
 
-        if (subNewPass.length() >= 6) {
+        if (subName != null && subNewPass.length() >= 6) {
           log.debug("Getting ApplicationRoot");
           String ApplicationRoot = getServletContext().getRealPath("");
 

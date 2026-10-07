@@ -77,7 +77,7 @@ public class UrlAccess3 extends HttpServlet {
             ses.getAttribute("userName").toString());
         log.debug(levelName + " servlet accessed by: " + ses.getAttribute("userName").toString());
         String htmlOutput = null;
-        if (Validate.validateAdminSession(ses)) {
+        if (Boolean.TRUE.equals(ses.getAttribute("urlAccessAdmin"))) {
           String userKey =
               Hash.generateUserSolution(
                   Getter.getModuleResultFromHash(getServletContext().getRealPath(""), levelHash),

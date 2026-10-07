@@ -3,8 +3,8 @@ package servlets.module.challenge;
 import dbProcs.Database;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
@@ -78,7 +78,10 @@ public class SqlInjectionStoredProcedure extends HttpServlet {
         log.debug("Getting Connection to Database");
         Connection conn =
             Database.getChallengeConnection(ApplicationRoot, "SqlChallengeStoredProc");
-        CallableStatement stmt = conn.prepareCall("CALL findUser(?)");
+        PreparedStatement stmt =
+            conn.prepareStatement(
+                "SELECT customerId, customerName, customerAddress FROM customers WHERE"
+                    + " customerAddress = ?");
         stmt.setString(1, userIdentity);
         ResultSet resultSet = stmt.executeQuery();
 
@@ -89,8 +92,6 @@ public class SqlInjectionStoredProcedure extends HttpServlet {
                 + bundle.getString("response.table.name")
                 + "</th><th>"
                 + bundle.getString("response.table.address")
-                + "</th><th>"
-                + bundle.getString("response.table.comment")
                 + "</th></tr>";
 
         log.debug("Opening Result Set from query");
@@ -101,8 +102,6 @@ public class SqlInjectionStoredProcedure extends HttpServlet {
                   + Encode.forHtml(resultSet.getString(2))
                   + "</td><td>"
                   + Encode.forHtml(resultSet.getString(3))
-                  + "</td><td>"
-                  + Encode.forHtml(resultSet.getString(4))
                   + "</td></tr>";
           i++;
         }

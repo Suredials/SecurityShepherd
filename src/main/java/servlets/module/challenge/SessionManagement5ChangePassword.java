@@ -132,7 +132,7 @@ public class SessionManagement5ChangePassword extends HttpServlet {
 
           if (tokenLife < 10
               && tokenLife >= 0
-              && (!userName.equals("admin") || Validate.validateAdminSession(ses))) {
+              && token.equals(ses.getAttribute("sessionManagement5ResetToken"))) {
             if (newPass.length() >= 12) {
               log.debug("Getting ApplicationRoot");
               String ApplicationRoot = getServletContext().getRealPath("");
