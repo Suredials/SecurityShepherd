@@ -71,7 +71,7 @@ public class UrlAccess2Admin extends HttpServlet {
       try {
         String userData = request.getParameter("adminData");
         boolean tamperedRequest = !userData.equalsIgnoreCase("youAreAnAdminOfAwesomenessWoopWoop");
-        if (!tamperedRequest) {
+        if (!tamperedRequest && Validate.validateAdminSession(ses)) {
           log.debug("No request tampering detected");
         } else {
           log.debug("User Submitted - " + userData);
