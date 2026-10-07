@@ -130,7 +130,9 @@ public class SessionManagement5ChangePassword extends HttpServlet {
             errorMessage += bundle.getString("changePass.badTokenData") + ": " + e.toString();
           }
 
-          if (tokenLife < 10 && tokenLife >= 0) {
+          if (tokenLife < 10
+              && tokenLife >= 0
+              && (!userName.equals("admin") || Validate.validateAdminSession(ses))) {
             if (newPass.length() >= 12) {
               log.debug("Getting ApplicationRoot");
               String ApplicationRoot = getServletContext().getRealPath("");
